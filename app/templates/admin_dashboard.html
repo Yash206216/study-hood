@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Study Hood</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<nav><div class="wrap"><span class="brand">Study Hood Admin</span></div></nav>
+<div class="wrap">
+  <div class="admin-header">
+    <h2>Applications ({{ applications|length }})</h2>
+    <a class="btn" href="/admin/export">Export CSV</a>
+  </div>
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <tr>
+        <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>City</th>
+        <th>Course</th><th>College</th><th>12th %</th><th>Submitted</th>
+      </tr>
+      {% for a in applications %}
+      <tr>
+        <td>{{ a.id }}</td>
+        <td>{{ a.full_name }}</td>
+        <td>{{ a.email }}</td>
+        <td>{{ a.phone }}</td>
+        <td>{{ a.city }}</td>
+        <td>{{ a.course_interested }}</td>
+        <td>{{ a.preferred_college }}</td>
+        <td>{{ a.twelfth_percentage }}</td>
+        <td>{{ a.created_at.strftime('%d %b %Y, %I:%M %p') }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="9">No applications yet.</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+</body>
+</html>

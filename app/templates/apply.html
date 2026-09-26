@@ -7,10 +7,11 @@
 <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<nav><div class="wrap"><span class="brand">Study Hood</span></div></nav>
-<div class="wrap">
+<nav><div class="wrap"><a class="brand" href="/">Study Hood</a></div></nav>
+<div class="wrap-narrow">
   <div class="card">
     <h2>Application form</h2>
+    <p class="card-sub">Fields marked * are required. This takes about 3 minutes.</p>
 
     {% if errors %}
     <div class="error-box">
@@ -40,6 +41,14 @@
       <input type="text" id="preferred_college" name="preferred_college" required
              placeholder="e.g. XYZ College, ABC University" value="{{ data.preferred_college or '' }}">
 
+      <label for="intake_year">Preferred intake year</label>
+      <select id="intake_year" name="intake_year">
+        <option value="" {% if not data.intake_year %}selected{% endif %}>Select year</option>
+        <option value="2026" {% if data.intake_year == "2026" %}selected{% endif %}>2026</option>
+        <option value="2027" {% if data.intake_year == "2027" %}selected{% endif %}>2027</option>
+        <option value="2028" {% if data.intake_year == "2028" %}selected{% endif %}>2028</option>
+      </select>
+
       <label for="twelfth_percentage">12th grade percentage</label>
       <input type="text" id="twelfth_percentage" name="twelfth_percentage" value="{{ data.twelfth_percentage or '' }}">
 
@@ -57,5 +66,10 @@
     </form>
   </div>
 </div>
+<footer>
+  <div class="wrap">
+    <p class="footer-note">Study Hood &middot; Your data is used only to process your college application.</p>
+  </div>
+</footer>
 </body>
 </html>

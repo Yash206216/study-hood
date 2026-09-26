@@ -13,6 +13,7 @@ class Application(Base):
     city = Column(String(100), nullable=False)
     course_interested = Column(String(200), nullable=False)
     preferred_college = Column(String(200), nullable=False)
+    intake_year = Column(String(10), nullable=True)
     twelfth_percentage = Column(String(10), nullable=True)
     message = Column(Text, nullable=True)
     consent_given = Column(Boolean, default=False, nullable=False)

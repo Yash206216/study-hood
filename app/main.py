@@ -38,6 +38,7 @@ def submit_application(
     city: str = Form(...),
     course_interested: str = Form(...),
     preferred_college: str = Form(...),
+    intake_year: str = Form(""),
     twelfth_percentage: str = Form(""),
     message: str = Form(""),
     consent: str = Form(None),
@@ -55,6 +56,7 @@ def submit_application(
         data = {
             "full_name": full_name, "email": email, "phone": phone, "city": city,
             "course_interested": course_interested, "preferred_college": preferred_college,
+            "intake_year": intake_year,
             "twelfth_percentage": twelfth_percentage, "message": message,
         }
         return templates.TemplateResponse(request, "apply.html", {"errors": errors, "data": data})
@@ -66,6 +68,7 @@ def submit_application(
         city=city.strip(),
         course_interested=course_interested.strip(),
         preferred_college=preferred_college.strip(),
+        intake_year=intake_year.strip(),
         twelfth_percentage=twelfth_percentage.strip(),
         message=message.strip(),
         consent_given=True,
@@ -93,10 +96,10 @@ def export_csv(db: Session = Depends(get_db), _=Depends(require_admin)):
     buffer = io.StringIO()
     writer = csv.writer(buffer)
     writer.writerow(["ID", "Full Name", "Email", "Phone", "City", "Course Interested",
-                      "Preferred College", "12th %", "Message", "Consent", "Submitted At"])
+                      "Preferred College", "Intake Year", "12th %", "Message", "Consent", "Submitted At"])
     for a in applications:
         writer.writerow([a.id, a.full_name, a.email, a.phone, a.city, a.course_interested,
-                          a.preferred_college, a.twelfth_percentage, a.message,
+                          a.preferred_college, a.intake_year, a.twelfth_percentage, a.message,
                           a.consent_given, a.created_at])
     buffer.seek(0)
     return StreamingResponse(

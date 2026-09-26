@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ college.name }} — Apply via Study Hood</title>
+<meta name="description" content="Apply to {{ college.name }} through Study Hood — one form, no separate portal.">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav><div class="wrap"><a class="brand" href="/">Study Hood</a></div></nav>
+
+<div class="hero">
+  <div class="wrap-narrow">
+    <span class="hero-eyebrow">{{ college.city or "Partner college" }}</span>
+    <h1>{{ college.name }}</h1>
+    {% if college.description %}<p>{{ college.description }}</p>{% endif %}
+    <a class="btn large" href="/apply?college={{ college.slug }}">Apply to {{ college.name }}</a>
+  </div>
+</div>
+
+{% if college.courses_offered %}
+<section>
+  <div class="wrap-narrow">
+    <h2 class="section-title">Courses offered</h2>
+    <div class="stream-tags">
+      {% for course in college.courses_offered.split(',') %}
+        <span class="stream-tag">{{ course.strip() }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section>
+  <div class="wrap-narrow">
+    <div class="cta-banner">
+      <h2>Ready to apply to {{ college.name }}?</h2>
+      <p>Fill one form — Study Hood forwards it directly, no separate portal needed.</p>
+      <a class="btn large" href="/apply?college={{ college.slug }}">Start your application</a>
+      {% if college.website %}<p style="margin-top:16px;"><a href="{{ college.website }}" target="_blank" rel="noopener">Visit {{ college.name }}'s official website →</a></p>{% endif %}
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="footer-note">Study Hood &middot; Your data is used only to process your college application.</p>
+  </div>
+</footer>
+
+</body>
+</html>

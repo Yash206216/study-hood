@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Colleges — Study Hood Admin</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<nav><div class="wrap"><span class="brand">Study Hood Admin</span></div></nav>
+<div class="wrap">
+  <div class="admin-header">
+    <h2>College pages ({{ colleges|length }})</h2>
+    <a class="btn" href="/admin">← Back to applications</a>
+  </div>
+
+  <div class="card" style="margin-bottom: 28px;">
+    <h3 style="margin-top:0;">Add a new college</h3>
+    {% if error %}<div class="error-box">{{ error }}</div>{% endif %}
+    <form method="post" action="/admin/colleges">
+      <label for="name">College name *</label>
+      <input type="text" id="name" name="name" required placeholder="e.g. XYZ Institute of Technology">
+
+      <label for="city">City</label>
+      <input type="text" id="city" name="city" placeholder="e.g. Mohali">
+
+      <label for="description">Short description</label>
+      <textarea id="description" name="description" rows="3" placeholder="One or two sentences about this college"></textarea>
+
+      <label for="courses_offered">Courses offered (comma-separated)</label>
+      <input type="text" id="courses_offered" name="courses_offered" placeholder="e.g. B.Tech CSE, MBA, BCA">
+
+      <label for="website">Official website (optional)</label>
+      <input type="url" id="website" name="website" placeholder="https://...">
+
+      <div style="margin-top: 20px;">
+        <button class="btn" type="submit">Create college page</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <tr><th>Name</th><th>City</th><th>Private link</th><th>Created</th></tr>
+      {% for c in colleges %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td>{{ c.city or "—" }}</td>
+        <td><a href="/college/{{ c.slug }}" target="_blank">/college/{{ c.slug }}</a></td>
+        <td>{{ c.created_at.strftime('%d %b %Y') }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">No college pages yet — add one above.</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+</body>
+</html>

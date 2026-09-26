@@ -11,7 +11,10 @@
 <div class="wrap">
   <div class="admin-header">
     <h2>Applications ({{ applications|length }})</h2>
-    <a class="btn" href="/admin/export">Export CSV</a>
+    <div style="display:flex; gap:10px;">
+      <a class="btn" href="/admin/colleges" style="background:transparent; color:var(--accent-dark); border:1px solid var(--accent);">Manage colleges</a>
+      <a class="btn" href="/admin/export">Export CSV</a>
+    </div>
   </div>
   <div class="card" style="overflow-x:auto;">
     <table>

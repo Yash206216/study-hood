@@ -21,6 +21,7 @@
     {% endif %}
 
     <form method="post" action="/apply">
+      {% if data.source_college %}<input type="hidden" name="source_college" value="{{ data.source_college }}">{% endif %}
       <label for="full_name">Full name *</label>
       <input type="text" id="full_name" name="full_name" required value="{{ data.full_name or '' }}">
 
